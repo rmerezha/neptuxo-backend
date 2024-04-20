@@ -1,9 +1,7 @@
 package space.neptuxo.util;
 
 import java.lang.reflect.Proxy;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -21,6 +19,8 @@ public final class ConnectionPool {
     static {
         initPool();
     }
+
+
 
     private static void initPool() {
         int poolSize = Integer.parseInt(PropertiesUtil.get(POOL_SIZE_KEY));
