@@ -1,4 +1,4 @@
-package space.neptuxo.shop;
+package space.neptuxo;
 
 import static org.junit.Assert.assertTrue;
 

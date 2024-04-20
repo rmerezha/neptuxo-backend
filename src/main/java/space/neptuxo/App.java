@@ -1,4 +1,4 @@
-package space.neptuxo.shop;
+package space.neptuxo;
 
 /**
  * Hello world!
