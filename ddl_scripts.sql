@@ -14,7 +14,6 @@ CREATE TABLE IF NOT EXISTS product
     type        VARCHAR(128)                 NOT NULL,
     count       INT                          NOT NULL CHECK (count >= 0),
     imagePath   VARCHAR(256)                 NOT NULL UNIQUE
-
 );
 
 CREATE TABLE IF NOT EXISTS preference

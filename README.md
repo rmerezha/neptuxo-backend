@@ -5,3 +5,5 @@
 ### Build tool: [Apache Maven](https://maven.apache.org/)
 ### Unit testing: [JUnit5](https://junit.org/junit5/), [Mockito](https://site.mockito.org/)
 ### Servlet container: [Apache Tomcat](https://tomcat.apache.org/)
+### Libraries:
+ - [Lombok](https://projectlombok.org/)
