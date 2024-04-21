@@ -27,9 +27,10 @@ CREATE TABLE IF NOT EXISTS preference
 
 CREATE TABLE IF NOT EXISTS orders
 (
-    id         VARCHAR(128) PRIMARY KEY,
-    product_id BIGINT REFERENCES product (id) NOT NULL,
-    user_id    BIGINT REFERENCES users (id)   NOT NULL,
-    address    VARCHAR(256)                   NOT NULL,
-    status     VARCHAR(128)                   NOT NULL
+    id          VARCHAR(128) PRIMARY KEY,
+    product_id  BIGINT REFERENCES product (id) NOT NULL,
+    customer_id BIGINT REFERENCES users (id)   NOT NULL,
+    address     VARCHAR(256)                   NOT NULL,
+    status      VARCHAR(128)                   NOT NULL,
+    created_at  TIMESTAMP                      NOT NULL
 );
