@@ -9,10 +9,11 @@ CREATE TABLE IF NOT EXISTS users
 CREATE TABLE IF NOT EXISTS product
 (
     id          BIGSERIAL PRIMARY KEY,
-    user_id     BIGINT REFERENCES users (id) ON DELETE CASCADE NOT NULL,
+    user_id     BIGINT REFERENCES users (id) NOT NULL,
     description VARCHAR(512),
-    type        VARCHAR(128)                                   NOT NULL,
-    count       INT                                            NOT NULL CHECK (count >= 0)
+    type        VARCHAR(128)                 NOT NULL,
+    count       INT                          NOT NULL CHECK (count >= 0),
+    imagePath   VARCHAR(256)                 NOT NULL UNIQUE
 
 );
 
