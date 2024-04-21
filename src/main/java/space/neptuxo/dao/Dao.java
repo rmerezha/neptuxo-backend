@@ -1,13 +1,15 @@
 package space.neptuxo.dao;
 
+import java.util.Optional;
+
 public interface Dao<T, K> {
 
-    T find(K id);
+    Optional<T> find(K id);
 
     boolean remove(K id);
 
+    boolean update(T obj);
+
     void save(T obj);
 
-    void update(T obj);
-    
 }
