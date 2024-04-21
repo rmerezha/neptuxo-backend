@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -13,8 +14,9 @@ public class Order {
 
     private UUID id;
     private long productId;
-    private long userId;
+    private long customerId;
     private String address;
     private OrderStatus status;
+    private LocalDateTime createdAt;
 
 }
