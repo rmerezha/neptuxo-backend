@@ -18,9 +18,10 @@ CREATE TABLE IF NOT EXISTS product
 
 CREATE TABLE IF NOT EXISTS preference
 (
-    user_id BIGINT REFERENCES users (id),
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT REFERENCES users (id) NOT NULL,
     type    VARCHAR(128),
-    PRIMARY KEY (user_id, type)
+    UNIQUE (user_id, type)
 );
 
 CREATE TABLE IF NOT EXISTS orders
@@ -29,5 +30,5 @@ CREATE TABLE IF NOT EXISTS orders
     product_id BIGINT REFERENCES product (id) NOT NULL,
     user_id    BIGINT REFERENCES users (id)   NOT NULL,
     address    VARCHAR(256)                   NOT NULL,
-    type       VARCHAR(128)                   NOT NULL
+    status       VARCHAR(128)                   NOT NULL
 );
