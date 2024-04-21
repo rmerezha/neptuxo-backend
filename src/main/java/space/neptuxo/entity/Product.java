@@ -14,7 +14,7 @@ public class Product {
     private long id;
     private long createdBy;
     private String description;
-    private Type type;
+    private ProductType type;
     private int count;
     private LocalDateTime createdAt;
     private String imagePath;
