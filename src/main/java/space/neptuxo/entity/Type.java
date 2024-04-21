@@ -1,4 +1,4 @@
 package space.neptuxo.entity;
 
-public enum ProductType {
+public enum Type {
 }
