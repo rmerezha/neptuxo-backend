@@ -1,13 +1,13 @@
 package space.neptuxo.integration.dao;
 
 import lombok.SneakyThrows;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import space.neptuxo.dao.UserBaseDao;
 import space.neptuxo.entity.User;
 import space.neptuxo.util.ConnectionPool;
+import space.neptuxo.util_for_test.SqlInitializer;
 
+import java.sql.Connection;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,68 +15,69 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserBaseDaoIT {
 
-    private static final String CLEAR_TABLE = """
-            TRUNCATE TABLE users RESTART IDENTITY CASCADE;
-            """;
+    private UserBaseDao userDao;
+    private Connection connection;
+    @BeforeEach
+    public void init() {
+        connection = ConnectionPool.get();
+        SqlInitializer.insert(connection);
+        userDao = new UserBaseDao(connection);
+    }
 
     @SneakyThrows
     @AfterEach
     public void clear() {
-        try (var connection = ConnectionPool.get();
-             var ps = connection.prepareStatement(CLEAR_TABLE)) {
-            ps.executeUpdate();
-        }
-
+        SqlInitializer.clear(connection);
+        connection.close();
     }
-
-    private final UserBaseDao userDao = new UserBaseDao(ConnectionPool.get());
 
     @Test
     void findById() {
-        User user = buildUser();
-        userDao.save(user);
 
-        Optional<User> actual = userDao.findById(user.getId());
+        long id = 5;
 
-        assertEquals(user.getId(), actual.map(User::getId).orElseGet(Assertions::fail));
-    }
+        Optional<User> actual = userDao.findById(id);
 
-    @Test
-    void remove() {
-        User user = buildUser();
-        userDao.save(user);
+        assertEquals(id , actual.map(User::getId).orElseGet(Assertions::fail));
 
-        boolean result = userDao.remove(user.getId());
-
-        assertTrue(result);
-        assertEquals(Optional.empty(), userDao.findById(user.getId()));
     }
 
     @Test
     void save() {
-        User user = buildUser();
+
+        User user = new User(0, "test1", "test1@neptuxo.com", "qwerty");
 
         userDao.save(user);
 
         assertNotEquals(0, user.getId());
+
     }
 
     @Test
     void update() {
-        User user = buildUser();
-        userDao.save(user);
-        String newUsername = "username";
-        user.setUsername(newUsername);
-        userDao.update(user);
 
-        assertEquals(newUsername, userDao.findById(user.getId()).orElseGet(Assertions::fail).getUsername());
+        User expected = new User(5, "updated_name", "updated_email", "updated_passwd");
+
+        boolean result = userDao.update(expected);
+        User actual = userDao.findById(expected.getId()).orElseGet(Assertions::fail);
+
+        assertTrue(result);
+        assertEquals(expected.getUsername(), actual.getUsername());
+        assertEquals(expected.getEmail(), actual.getEmail());
+        assertEquals(expected.getPasswd(), actual.getPasswd());
+
     }
 
-    private static User buildUser() {
-        return User.builder()
-                .username("test1")
-                .email("test1@test.org")
-                .passwd("qwerty")
-                .build();
+    @Test
+    void remove() {
+
+        long id = 7;
+
+        boolean result = userDao.remove(id);
+
+        assertTrue(result);
+        assertEquals(Optional.empty(), userDao.findById(id));
+
     }
+
 }

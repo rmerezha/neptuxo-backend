@@ -1,5 +1,5 @@
 .idea
 backend.iml
-src/main/resources
-src/test/resources
+src/main/resources/
+src/test/resources/application.properties
 target

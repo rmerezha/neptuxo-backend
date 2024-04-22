@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 public class ProductBaseDao implements Dao<Product, Long> {
@@ -118,6 +119,5 @@ public class ProductBaseDao implements Dao<Product, Long> {
                 .createdAt(rs.getTimestamp("created_at").toLocalDateTime())
                 .imagePath(rs.getString("image_path"))
                 .build();
-
     }
 }
