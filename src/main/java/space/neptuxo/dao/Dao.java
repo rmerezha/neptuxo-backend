@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public interface Dao<T, K> {
 
-    Optional<T> find(K id);
+    Optional<T> findById(K id);
 
     boolean remove(K id);
 

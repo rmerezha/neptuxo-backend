@@ -14,14 +14,14 @@ CREATE TABLE IF NOT EXISTS product
     type        VARCHAR(128)                 NOT NULL,
     count       INT                          NOT NULL CHECK (count >= 0),
     created_at  TIMESTAMP                    NOT NULL,
-    image_path   VARCHAR(256)                 NOT NULL UNIQUE
+    image_path  VARCHAR(256)                 NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS preference
 (
     id      BIGSERIAL PRIMARY KEY,
     user_id BIGINT REFERENCES users (id) NOT NULL,
-    type    VARCHAR(128),
+    type    VARCHAR(128)                 NOT NULL,
     UNIQUE (user_id, type)
 );
 

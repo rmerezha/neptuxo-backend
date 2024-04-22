@@ -21,12 +21,12 @@ public class UserDao implements Dao<User, Long> {
             WHERE id = ?;
             """;
 
-    private static final String SAVE_USER = """
+    private static final String SAVE = """
             INSERT INTO users (username, email, passwd)
             VALUES (?, ?, ?);
             """;
 
-    private static final String UPDATE_USER = """
+    private static final String UPDATE = """
             UPDATE users
             SET username = ?,
                 email = ?,
@@ -34,14 +34,14 @@ public class UserDao implements Dao<User, Long> {
             WHERE id = ?;
             """;
 
-    private static final String REMOVE_USER = """
+    private static final String REMOVE = """
             DELETE FROM users
             WHERE id = ?;
             """;
 
     @Override
     @SneakyThrows
-    public Optional<User> find(Long id) {
+    public Optional<User> findById(Long id) {
         try (var ps = connection.prepareStatement(FIND_BY_ID)) {
             ps.setLong(1, id);
             ResultSet rs = ps.executeQuery();
@@ -56,7 +56,7 @@ public class UserDao implements Dao<User, Long> {
     @Override
     @SneakyThrows
     public boolean remove(Long id) {
-        try (var ps = connection.prepareStatement(REMOVE_USER)) {
+        try (var ps = connection.prepareStatement(REMOVE)) {
             ps.setLong(1, id);
             return ps.executeUpdate() != 0;
         }
@@ -65,7 +65,7 @@ public class UserDao implements Dao<User, Long> {
     @Override
     @SneakyThrows
     public void save(User obj) {
-        try (var ps = connection.prepareStatement(SAVE_USER)) {
+        try (var ps = connection.prepareStatement(SAVE)) {
             ps.setString(1, obj.getUsername());
             ps.setString(2, obj.getEmail());
             ps.setString(3, obj.getPasswd());
@@ -80,7 +80,7 @@ public class UserDao implements Dao<User, Long> {
     @Override
     @SneakyThrows
     public boolean update(User obj) {
-        try (var ps = connection.prepareStatement(UPDATE_USER)) {
+        try (var ps = connection.prepareStatement(UPDATE)) {
             ps.setString(1, obj.getUsername());
             ps.setString(2, obj.getEmail());
             ps.setString(3, obj.getPasswd());

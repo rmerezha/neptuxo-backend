@@ -27,18 +27,18 @@ public class ProductDao implements Dao<Product, Long> {
             WHERE id = ?;
             """;
 
-    private static final String SAVE_PRODUCT = """
+    private static final String SAVE = """
             INSERT INTO product (created_by, description, type, count, created_at,image_path)
             VALUES (?, ?, ?, ?, ?, ?);
             """;
 
-    private static final String REMOVE_PRODUCT = """
+    private static final String REMOVE = """
             DELETE FROM product
             WHERE id = ?;
             """;
 
-    private static final String UPDATE_PRODUCT = """
-            UPDATE product 
+    private static final String UPDATE = """
+            UPDATE product
             SET created_by = ?,
                 description = ?,
                 type = ?,
@@ -50,7 +50,7 @@ public class ProductDao implements Dao<Product, Long> {
 
     @Override
     @SneakyThrows
-    public Optional<Product> find(Long id) {
+    public Optional<Product> findById(Long id) {
         try (var ps = connection.prepareStatement(FIND_BY_ID)) {
             ps.setLong(1, id);
             ResultSet resultSet = ps.executeQuery();
@@ -66,7 +66,7 @@ public class ProductDao implements Dao<Product, Long> {
     @Override
     @SneakyThrows
     public boolean remove(Long id) {
-        try (var ps = connection.prepareStatement(REMOVE_PRODUCT)) {
+        try (var ps = connection.prepareStatement(REMOVE)) {
             ps.setLong(1, id);
             return ps.executeUpdate() != 0;
         }
@@ -75,7 +75,7 @@ public class ProductDao implements Dao<Product, Long> {
     @Override
     @SneakyThrows
     public boolean update(Product obj) {
-        try (var ps = connection.prepareStatement(UPDATE_PRODUCT)) {
+        try (var ps = connection.prepareStatement(UPDATE)) {
             ps.setLong(1, obj.getCreatedBy());
             ps.setString(2, obj.getDescription());
             ps.setString(3, obj.getType().name());
@@ -90,7 +90,7 @@ public class ProductDao implements Dao<Product, Long> {
     @Override
     @SneakyThrows
     public void save(Product obj) {
-        try (var ps = connection.prepareStatement(SAVE_PRODUCT)) {
+        try (var ps = connection.prepareStatement(SAVE)) {
             ps.setLong(1, obj.getCreatedBy());
             ps.setString(2, obj.getDescription());
             ps.setString(3, obj.getType().name());
