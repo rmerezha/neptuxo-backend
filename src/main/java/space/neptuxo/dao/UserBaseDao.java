@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class UserDao implements Dao<User, Long> {
+public class UserBaseDao implements Dao<User, Long> {
 
     private final Connection connection;
 

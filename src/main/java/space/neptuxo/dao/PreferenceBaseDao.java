@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class PreferenceDao implements Dao<Preference, Long> {
+public class PreferenceBaseDao implements Dao<Preference, Long> {
 
     private final Connection connection;
 

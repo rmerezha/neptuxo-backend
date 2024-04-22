@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class ProductDao implements Dao<Product, Long> {
+public class ProductBaseDao implements Dao<Product, Long> {
 
     private final Connection connection;
 

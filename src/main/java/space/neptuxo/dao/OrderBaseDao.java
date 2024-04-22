@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-public class OrderDao implements Dao<Order, UUID> {
+public class OrderBaseDao implements Dao<Order, UUID> {
 
     private final Connection connection;
 
