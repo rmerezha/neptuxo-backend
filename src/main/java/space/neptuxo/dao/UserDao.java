@@ -22,7 +22,7 @@ public class UserDao implements Dao<User, Long> {
             """;
 
     private static final String SAVE_USER = """
-            INSERT INTO users
+            INSERT INTO users (username, email, passwd)
             VALUES (?, ?, ?);
             """;
 
