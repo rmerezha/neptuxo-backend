@@ -1,11 +1,14 @@
 package space.neptuxo.util;
 
+import lombok.experimental.UtilityClass;
+
 import java.lang.reflect.Proxy;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 
-public final class ConnectionPool {
+@UtilityClass
+public class ConnectionPool {
 
     private static final String POOL_SIZE_KEY = "db.pool.size";
     private static final String URL_KEY = "db.url";
@@ -14,13 +17,9 @@ public final class ConnectionPool {
     private static final ArrayList<Connection> sourceConnections = new ArrayList<>();
     private static ArrayBlockingQueue<Connection> pool;
 
-    private ConnectionPool() {}
-
     static {
         initPool();
     }
-
-
 
     private static void initPool() {
         int poolSize = Integer.parseInt(PropertiesUtil.get(POOL_SIZE_KEY));
