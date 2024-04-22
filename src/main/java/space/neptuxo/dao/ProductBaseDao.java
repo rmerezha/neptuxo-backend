@@ -7,6 +7,7 @@ import space.neptuxo.entity.ProductType;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Optional;
 
@@ -90,7 +91,7 @@ public class ProductBaseDao implements Dao<Product, Long> {
     @Override
     @SneakyThrows
     public void save(Product obj) {
-        try (var ps = connection.prepareStatement(SAVE)) {
+        try (var ps = connection.prepareStatement(SAVE, Statement.RETURN_GENERATED_KEYS)) {
             ps.setLong(1, obj.getCreatedBy());
             ps.setString(2, obj.getDescription());
             ps.setString(3, obj.getType().name());

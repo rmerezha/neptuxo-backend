@@ -15,7 +15,7 @@ class PropertiesUtilTest {
 
     @ParameterizedTest
     @MethodSource("getPropertiesData")
-    public void get(String key, String expectedValue) {
+    void get(String key, String expectedValue) {
 
         String actualValue = PropertiesUtil.get(key);
 

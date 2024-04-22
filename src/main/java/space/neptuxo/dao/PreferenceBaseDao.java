@@ -7,6 +7,7 @@ import space.neptuxo.entity.ProductType;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -77,7 +78,7 @@ public class PreferenceBaseDao implements Dao<Preference, Long> {
     @Override
     @SneakyThrows
     public void save(Preference obj) {
-        try (var ps = connection.prepareStatement(SAVE)) {
+        try (var ps = connection.prepareStatement(SAVE, Statement.RETURN_GENERATED_KEYS)) {
             ps.setLong(1, obj.getUserId());
             ps.setString(2, obj.getType().name());
             ps.executeUpdate();

@@ -6,6 +6,7 @@ import space.neptuxo.entity.User;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -66,14 +67,14 @@ public class UserBaseDao implements Dao<User, Long> {
     @Override
     @SneakyThrows
     public void save(User obj) {
-        try (var ps = connection.prepareStatement(SAVE)) {
+        try (var ps = connection.prepareStatement(SAVE, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, obj.getUsername());
             ps.setString(2, obj.getEmail());
             ps.setString(3, obj.getPasswd());
             ps.executeUpdate();
             ResultSet generatedKeys = ps.getGeneratedKeys();
             if (generatedKeys.next()) {
-                long generatedId = generatedKeys.getLong("id");
+                obj.setId(generatedKeys.getLong("id"));
             }
         }
     }

@@ -7,6 +7,7 @@ import space.neptuxo.entity.OrderStatus;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.UUID;
@@ -91,7 +92,7 @@ public class OrderBaseDao implements Dao<Order, UUID> {
     @Override
     @SneakyThrows
     public void save(Order obj) {
-        try (var ps = connection.prepareStatement(SAVE)) {
+        try (var ps = connection.prepareStatement(SAVE, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, obj.getId().toString());
             ps.setLong(2, obj.getProductId());
             ps.setLong(3, obj.getCustomerId());
