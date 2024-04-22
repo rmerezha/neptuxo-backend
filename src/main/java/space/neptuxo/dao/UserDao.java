@@ -12,6 +12,7 @@ import java.util.Optional;
 public class UserDao implements Dao<User, Long> {
 
     private final Connection connection;
+
     private static final String FIND_BY_ID = """
             SELECT id,
                    username,
