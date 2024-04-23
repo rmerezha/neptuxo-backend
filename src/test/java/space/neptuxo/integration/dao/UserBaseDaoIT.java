@@ -49,8 +49,10 @@ class UserBaseDaoIT {
 
         userDao.save(user);
 
+        Optional<User> actual = userDao.findById(user.getId());
         assertNotEquals(0, user.getId());
-
+        assertTrue(actual.isPresent());
+        assertEquals(user, actual.get());
     }
 
     @Test
