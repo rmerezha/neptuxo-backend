@@ -7,5 +7,5 @@ public class OrderDao extends OrderBaseDao {
     public OrderDao(Connection connection) {
         super(connection);
     }
-    
+
 }
