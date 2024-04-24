@@ -69,14 +69,14 @@ class ProductBaseDaoIT {
                 .description("sss")
                 .type(ProductType.ELECTRONICS)
                 .count(5)
-                .createdAt(LocalDateTime.now())
+                .createdAt(LocalDateTime.of(2023, 5, 5, 5, 5))
                 .imagePath("///")
                 .build();
 
         boolean result = productDao.update(product);
 
         assertTrue(result);
-        assertEquals(product.getType(), productDao.findById(5L).get().getType());
+        assertEquals(product, productDao.findById(5L).orElseGet(Assertions::fail));
 
     }
 

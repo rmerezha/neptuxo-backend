@@ -64,9 +64,7 @@ class UserBaseDaoIT {
         User actual = userDao.findById(expected.getId()).orElseGet(Assertions::fail);
 
         assertTrue(result);
-        assertEquals(expected.getUsername(), actual.getUsername());
-        assertEquals(expected.getEmail(), actual.getEmail());
-        assertEquals(expected.getPasswd(), actual.getPasswd());
+        assertEquals(expected, actual);
 
     }
 
