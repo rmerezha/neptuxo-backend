@@ -8,7 +8,6 @@ public class CreateUserMapper implements Map<CreateUserDto, User> {
     @Override
     public User map(CreateUserDto obj) {
         return User.builder()
-                .id(obj.id())
                 .username(obj.username())
                 .email(obj.email())
                 .passwd(obj.passwd())

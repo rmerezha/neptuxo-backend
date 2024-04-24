@@ -10,14 +10,13 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OrderMapperTest {
+class OrderDtoMapperDtoTest {
 
-    private final OrderMapper mapper = new OrderMapper();
+    private final OrderDtoMapper mapper = new OrderDtoMapper();
 
     @Test
     void map() {
-
-        Order entity = Order.builder()
+        OrderDto dto = OrderDto.builder()
                 .id(UUID.fromString("a85a9a53-9256-4f11-bbd3-e8202a8f481a"))
                 .productId(5)
                 .customerId(5)
@@ -26,17 +25,16 @@ class OrderMapperTest {
                 .createdAt(LocalDateTime.now())
                 .build();
 
-        OrderDto actual = mapper.map(entity);
+        Order actual = mapper.map(dto);
 
-        OrderDto expected = OrderDto.builder()
+        Order expected = Order.builder()
                 .id(UUID.fromString("a85a9a53-9256-4f11-bbd3-e8202a8f481a"))
                 .productId(5)
                 .customerId(5)
                 .address("sss")
                 .status(OrderStatus.NEW)
-                .createdAt(entity.getCreatedAt())
+                .createdAt(dto.createdAt())
                 .build();
         assertEquals(expected, actual);
-
     }
 }

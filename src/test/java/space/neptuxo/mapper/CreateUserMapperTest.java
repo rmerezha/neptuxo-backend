@@ -13,11 +13,11 @@ class CreateUserMapperTest {
     @Test
     void map() {
 
-        CreateUserDto dto = new CreateUserDto(5, "username", "email", "passwd");
+        CreateUserDto dto = new CreateUserDto("username", "email", "passwd");
 
         User actual = mapper.map(dto);
 
-        assertEquals(new User(dto.id(), dto.username(), dto.email(), dto.passwd()), actual);
+        assertEquals(new User(0, dto.username(), dto.email(), dto.passwd()), actual);
 
     }
 }

@@ -9,13 +9,14 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProductMapperTest {
+class ProductDtoMapperTest {
 
-    private final ProductMapper mapper = new ProductMapper();
+    private final ProductDtoMapper mapper = new ProductDtoMapper();
 
     @Test
     void map() {
-        Product entity = Product.builder()
+
+        ProductDto dto = ProductDto.builder()
                 .id(56)
                 .createdBy(5)
                 .description("sss")
@@ -25,9 +26,9 @@ class ProductMapperTest {
                 .imagePath("/images")
                 .build();
 
-        ProductDto actual = mapper.map(entity);
+        Product actual = mapper.map(dto);
 
-        ProductDto expected = ProductDto.builder()
+        Product expected = Product.builder()
                 .id(56)
                 .createdBy(5)
                 .description("sss")
@@ -37,6 +38,6 @@ class ProductMapperTest {
                 .imagePath("/images")
                 .build();
         assertEquals(expected, actual);
-    }
 
+    }
 }

@@ -3,17 +3,17 @@ package space.neptuxo.mapper;
 import space.neptuxo.dto.OrderDto;
 import space.neptuxo.entity.Order;
 
-public class OrderMapper implements Map<OrderDto, Order> {
+public class OrderMapper implements Map<Order, OrderDto> {
 
     @Override
-    public Order map(OrderDto obj) {
-        return Order.builder()
-                .id(obj.id())
-                .productId(obj.productId())
-                .customerId(obj.customerId())
-                .address(obj.address())
-                .status(obj.status())
-                .createdAt(obj.createdAt())
+    public OrderDto map(Order obj) {
+        return OrderDto.builder()
+                .id(obj.getId())
+                .productId(obj.getProductId())
+                .customerId(obj.getCustomerId())
+                .address(obj.getAddress())
+                .status(obj.getStatus())
+                .createdAt(obj.getCreatedAt())
                 .build();
     }
 
