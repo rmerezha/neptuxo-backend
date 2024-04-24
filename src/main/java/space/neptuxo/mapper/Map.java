@@ -2,6 +2,6 @@ package space.neptuxo.mapper;
 
 public interface Map <F, T> {
 
-    T mapFrom(F obj);
+    T map(F obj);
 
 }

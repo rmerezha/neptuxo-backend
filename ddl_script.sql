@@ -17,14 +17,6 @@ CREATE TABLE IF NOT EXISTS product
     image_path  VARCHAR(256)                                   NOT NULL UNIQUE
 );
 
-CREATE TABLE IF NOT EXISTS preference
-(
-    id      BIGSERIAL PRIMARY KEY,
-    user_id BIGINT REFERENCES users (id) ON DELETE CASCADE NOT NULL,
-    type    VARCHAR(128)                                   NOT NULL,
-    UNIQUE (user_id, type)
-);
-
 CREATE TABLE IF NOT EXISTS orders
 (
     id          VARCHAR(128) PRIMARY KEY,

@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Optional;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 public class ProductBaseDao implements Dao<Product, Long> {

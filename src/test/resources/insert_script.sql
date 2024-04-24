@@ -24,19 +24,6 @@ VALUES
     (9, '9', 'ANIMALS', 9, now(), '/image/9'),
     (10, '10', 'ANIMALS', 10, now(), '/image/10');
 
-INSERT INTO preference (user_id, type)
-VALUES
-    (1, 'ANIMALS'),
-    (2, 'ANIMALS'),
-    (3, 'ANIMALS'),
-    (4, 'ANIMALS'),
-    (5, 'ANIMALS'),
-    (6, 'ANIMALS'),
-    (7, 'ANIMALS'),
-    (8, 'ANIMALS'),
-    (9, 'ANIMALS'),
-    (10, 'ANIMALS');
-
 INSERT INTO orders (id, product_id, customer_id, address, status, created_at)
 VALUES
     ('607f11b1-6323-4664-9d5e-ed8e21a71a89', 1, 10, '1', 'NEW', now()),
