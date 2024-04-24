@@ -7,3 +7,4 @@
 ### Servlet container: [Apache Tomcat](https://tomcat.apache.org/)
 ### Libraries:
  - [Lombok](https://projectlombok.org/)
+ - [Jackson](https://github.com/FasterXML/jackson)
