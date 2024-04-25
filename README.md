@@ -8,3 +8,4 @@
 ### Libraries:
  - [Lombok](https://projectlombok.org/)
  - [Jackson](https://github.com/FasterXML/jackson)
+ - [BCrypt](https://github.com/djmdjm/jBCrypt)

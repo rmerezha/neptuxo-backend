@@ -69,6 +69,13 @@
       <version>2.17.0</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.mindrot</groupId>
+      <artifactId>jbcrypt</artifactId>
+      <version>0.4</version>
+    </dependency>
+
+
 
   </dependencies>
 
@@ -84,6 +91,7 @@
               <exclude>space/neptuxo/dto/*</exclude>
               <exclude>space/neptuxo/entity/*</exclude>
               <exclude>space/neptuxo/filter/*</exclude>
+              <exclude>space/neptuxo/request/*</exclude>
             </excludes>
           </configuration>
           <executions>
