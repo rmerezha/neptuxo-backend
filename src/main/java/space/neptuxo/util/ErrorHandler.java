@@ -1,7 +1,7 @@
 package space.neptuxo.util;
 
 import lombok.Getter;
-import lombok.Value;
+import space.neptuxo.service.Error;
 
 import java.util.ArrayList;
 import java.util.List;
