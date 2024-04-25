@@ -18,28 +18,29 @@ import java.util.Optional;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
-
-    /*
-    email
-    passwd
-     */
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ServletInputStream json = req.getInputStream();
+
         UserService service = new UserService();
-        Optional<ReadUserDto> user = service.login(json);
+        Optional<ReadUserDto> user;
+
+        try (ServletInputStream jsonStream = req.getInputStream()) {
+            user = service.login(jsonStream);
+        }
 
         JsonBuilder jsonBuilder = new JsonBuilder();
 
-        user.ifPresentOrElse(u -> {
-            req.getSession().setAttribute("user", u);
+        if (user.isPresent()) {
+            req.getSession().setAttribute("user", user.get());
             jsonBuilder.setStatus(Status.SUCCESS);
-        }, () -> {
+        } else {
             jsonBuilder.setStatus(Status.FAIL).setErrors(service.getErrorHandler().getErrors());
-        });
-        ServletOutputStream body = resp.getOutputStream();
-        body.write(jsonBuilder.build());
+        }
+
+        try (ServletOutputStream body = resp.getOutputStream()) {
+            body.write(jsonBuilder.build());
+        }
 
     }
+
 }

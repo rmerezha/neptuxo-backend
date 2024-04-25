@@ -1,6 +1,7 @@
 package space.neptuxo.servlet;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,7 +16,12 @@ public class LogoutServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         req.getSession().invalidate();
-        resp.getOutputStream().write(new JsonBuilder().setStatus(Status.SUCCESS).build());
+
+        try (ServletOutputStream body = resp.getOutputStream()) {
+            body.write(new JsonBuilder().setStatus(Status.SUCCESS).build());
+        }
+
     }
 }

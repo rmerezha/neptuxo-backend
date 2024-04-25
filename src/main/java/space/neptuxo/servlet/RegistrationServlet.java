@@ -16,23 +16,24 @@ import java.io.IOException;
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
 
-
-
-    /*
-    username
-    email
-    passwd
-     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ServletInputStream json = req.getInputStream();
+
         UserService service = new UserService();
-        boolean isSaved = service.registration(json);
+        boolean isSaved;
+
+        try (ServletInputStream jsonStream = req.getInputStream()) {
+            isSaved = service.registration(jsonStream);
+        }
+
         JsonBuilder jsonBuilder = new JsonBuilder();
+
         byte[] respJson = isSaved
                 ? jsonBuilder.setStatus(Status.SUCCESS).build()
                 : jsonBuilder.setStatus(Status.FAIL).setErrors(service.getErrorHandler().getErrors()).build();
-        ServletOutputStream body = resp.getOutputStream();
-        body.write(respJson);
+
+        try (ServletOutputStream body = resp.getOutputStream()) {
+            body.write(respJson);
+        }
     }
 }
