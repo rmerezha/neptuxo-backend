@@ -92,7 +92,7 @@ public class UserBaseDao implements Dao<User, Long> {
     }
 
     @SneakyThrows
-    private User buildUser(ResultSet rs) {
+    protected User buildUser(ResultSet rs) {
         return User.builder()
                 .id(rs.getLong("id"))
                 .username(rs.getString("username"))
