@@ -65,7 +65,7 @@ class ProductBaseDaoIT {
 
         Product product = Product.builder()
                 .id(5L)
-                .createdBy(2)
+                .createdBy(1)
                 .description("sss")
                 .type(ProductType.ELECTRONICS)
                 .count(5)

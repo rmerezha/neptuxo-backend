@@ -65,7 +65,7 @@ class OrderBaseDaoIT {
 
         Order order = Order.builder()
                 .id(id)
-                .productId(9)
+                .productId(2)
                 .customerId(9)
                 .address("Kiev")
                 .status(OrderStatus.RETURNED)
