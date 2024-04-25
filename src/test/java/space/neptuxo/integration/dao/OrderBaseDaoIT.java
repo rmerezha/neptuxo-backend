@@ -1,10 +1,7 @@
 package space.neptuxo.integration.dao;
 
 import lombok.SneakyThrows;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import space.neptuxo.dao.OrderBaseDao;
 import space.neptuxo.dao.ProductBaseDao;
 import space.neptuxo.entity.Order;
@@ -53,11 +50,12 @@ class OrderBaseDaoIT {
 
     @Test
     void remove() {
+        UUID uuid = UUID.fromString("bba55e36-b684-459b-bb98-411aa47d2dc0");
 
-        boolean result = orderDao.remove(id);
+        boolean result = orderDao.remove(uuid);
 
         assertTrue(result);
-        assertEquals(Optional.empty(), orderDao.findById(id));
+        assertEquals(Optional.empty(), orderDao.findById(uuid));
     }
 
     @Test
