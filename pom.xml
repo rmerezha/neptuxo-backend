@@ -93,6 +93,20 @@
               <exclude>space/neptuxo/filter/*</exclude>
               <exclude>space/neptuxo/request/*</exclude>
             </excludes>
+            <rules>
+              <rule>
+                <element>CONSTRUCTOR</element>
+                <excludes>
+                  <exclude>*.*</exclude>
+                </excludes>
+              </rule>
+              <rule>
+                <element>EXCEPTION</element>
+                <excludes>
+                  <exclude>*</exclude>
+                </excludes>
+              </rule>
+            </rules>
           </configuration>
           <executions>
             <execution>

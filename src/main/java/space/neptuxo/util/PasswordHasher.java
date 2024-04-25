@@ -1,5 +1,7 @@
 package space.neptuxo.util;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.experimental.UtilityClass;
 import org.mindrot.jbcrypt.BCrypt;
 
