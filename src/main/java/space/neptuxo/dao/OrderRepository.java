@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-public abstract class AbstractOrderDao implements Dao<Order, UUID> {
+public class OrderRepository implements AbstractOrderRepository {
 
     private final Connection connection;
 
@@ -51,9 +51,9 @@ public abstract class AbstractOrderDao implements Dao<Order, UUID> {
 
     @Override
     @SneakyThrows
-    public Optional<Order> findById(UUID id) {
+    public Optional<Order> findById(Order order) {
         try (var ps = connection.prepareStatement(FIND_BY_ID)) {
-            ps.setString(1, id.toString());
+            ps.setString(1, order.getId().toString());
             ResultSet rs = ps.executeQuery();
             Order o = null;
             if (rs.next()) {
@@ -67,9 +67,9 @@ public abstract class AbstractOrderDao implements Dao<Order, UUID> {
 
     @Override
     @SneakyThrows
-    public boolean remove(UUID id) {
+    public boolean remove(Order order) {
         try (var ps = connection.prepareStatement(REMOVE)) {
-            ps.setString(1, id.toString());
+            ps.setString(1, order.getId().toString());
             return ps.executeUpdate() != 0;
         }
     }
@@ -118,4 +118,5 @@ public abstract class AbstractOrderDao implements Dao<Order, UUID> {
                 .createdAt(rs.getTimestamp("created_at").toLocalDateTime())
                 .build();
     }
+
 }

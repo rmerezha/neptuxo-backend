@@ -10,12 +10,14 @@ public class PropertiesUtil {
 
     private static final Properties properties = new Properties();
 
+    private static final String PROPERTIES_PATH = "application.properties";
+
     static {
         loadProperties();
     }
 
     private static void loadProperties() {
-        var resourceAsStream = PropertiesUtil.class.getClassLoader().getResourceAsStream("application.properties");
+        var resourceAsStream = PropertiesUtil.class.getClassLoader().getResourceAsStream(PROPERTIES_PATH);
         try (resourceAsStream) {
             properties.load(resourceAsStream);
         } catch (IOException e) {

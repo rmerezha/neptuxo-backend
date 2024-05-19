@@ -2,12 +2,9 @@ package space.neptuxo.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import space.neptuxo.dao.UserDao;
+import space.neptuxo.dao.UserRepository;
 import space.neptuxo.dto.CreateUserDto;
 import space.neptuxo.dto.ReadUserDto;
-import space.neptuxo.mapper.CreateUserMapper;
-import space.neptuxo.repository.UserRepository;
 import space.neptuxo.request.LoginRequest;
 import space.neptuxo.util.ErrorHandler;
 import space.neptuxo.util.JsonParser;

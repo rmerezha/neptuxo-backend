@@ -10,9 +10,10 @@ import java.sql.Statement;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public abstract class AbstractUserDao implements Dao<User, Long> {
+public class UserRepository implements AbstractUserRepository {
 
     private final Connection connection;
+
 
     private static final String FIND_BY_ID = """
             SELECT id,
@@ -41,25 +42,31 @@ public abstract class AbstractUserDao implements Dao<User, Long> {
             WHERE id = ?;
             """;
 
+    private final static String FIND_BY_EMAIL = """
+            SELECT id, username, email, passwd
+            FROM users
+            WHERE email = ?;
+            """;
+
     @Override
     @SneakyThrows
-    public Optional<User> findById(Long id) {
+    public Optional<User> findById(User user) {
         try (var ps = connection.prepareStatement(FIND_BY_ID)) {
-            ps.setLong(1, id);
+            ps.setLong(1, user.getId());
             ResultSet rs = ps.executeQuery();
-            User user = null;
+            User dbUser = null;
             if (rs.next()) {
-                user = buildUser(rs);
+                dbUser = buildUser(rs);
             }
-            return Optional.ofNullable(user);
+            return Optional.ofNullable(dbUser);
         }
     }
 
     @Override
     @SneakyThrows
-    public boolean remove(Long id) {
+    public boolean remove(User user) {
         try (var ps = connection.prepareStatement(REMOVE)) {
-            ps.setLong(1, id);
+            ps.setLong(1, user.getId());
             return ps.executeUpdate() != 0;
         }
     }
@@ -92,7 +99,7 @@ public abstract class AbstractUserDao implements Dao<User, Long> {
     }
 
     @SneakyThrows
-    protected User buildUser(ResultSet rs) {
+    private User buildUser(ResultSet rs) {
         return User.builder()
                 .id(rs.getLong("id"))
                 .username(rs.getString("username"))
@@ -101,6 +108,22 @@ public abstract class AbstractUserDao implements Dao<User, Long> {
                 .build();
     }
 
-    public abstract Optional<User> findByEmail(String email);
+
+
+    @SneakyThrows
+    @Override
+    public Optional<User> findByEmailAndPasswd(User user) {
+        try (var ps = connection.prepareStatement(FIND_BY_EMAIL)) {
+            ps.setString(1, user.getEmail());
+            ResultSet rs = ps.executeQuery();
+            User dbUser = null;
+            if (rs.next()) {
+                dbUser = buildUser(rs);
+            }
+            return Optional.ofNullable(dbUser);
+
+
+        }
+    }
 
 }

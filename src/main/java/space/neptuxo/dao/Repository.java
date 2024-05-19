@@ -2,11 +2,11 @@ package space.neptuxo.dao;
 
 import java.util.Optional;
 
-public interface Dao<T, K> {
+public interface Repository<T> {
 
-    Optional<T> findById(K id);
+    Optional<T> findById(T obj);
 
-    boolean remove(K id);
+    boolean remove(T obj);
 
     boolean update(T obj);
 

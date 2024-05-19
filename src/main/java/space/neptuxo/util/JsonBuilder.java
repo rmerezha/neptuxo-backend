@@ -15,8 +15,16 @@ public class JsonBuilder {
 
     private final ObjectNode dataNode = mapper.createObjectNode();
 
+    private final static String STATUS_KEY = "status";
+    private final static String MESSAGE_KEY = "message";
+    private final static String CODE_KEY = "key";
+    private final static String DATA_KEY = "data";
+    private final static String ERRORS_KEY = "errors";
+
+
+
     public JsonBuilder setStatus(Status status) {
-        rootNode.put("status", status.getType());
+        rootNode.put(STATUS_KEY, status.getType());
         return this;
     }
 
@@ -37,7 +45,7 @@ public class JsonBuilder {
     }
 
     public JsonBuilder setMessage(String message) {
-        rootNode.put("message", message);
+        rootNode.put(MESSAGE_KEY, message);
         return this;
     }
 
@@ -47,18 +55,18 @@ public class JsonBuilder {
             ObjectNode error = mapper.createObjectNode();
             JsonNode errorCode = mapper.valueToTree(e.getCode());
             JsonNode errorMessage = mapper.valueToTree(e.getMessage());
-            error.set("code", errorCode);
-            error.set("message", errorMessage);
+            error.set(CODE_KEY, errorCode);
+            error.set(MESSAGE_KEY, errorMessage);
             errorsNode.add(error);
         });
-        rootNode.set("errors", errorsNode);
+        rootNode.set(ERRORS_KEY, errorsNode);
         return this;
     }
 
-    public byte[] build() {
+    public String build() {
         if (!dataNode.isEmpty()) {
-            rootNode.set("data", dataNode);
+            rootNode.set(DATA_KEY, dataNode);
         }
-        return rootNode.toString().getBytes();
+        return rootNode.toString();
     }
 }

@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public abstract class AbstractProductDao implements Dao<Product, Long> {
+public class ProductRepository implements AbstractProductRepository {
 
     private final Connection connection;
 
@@ -51,9 +51,9 @@ public abstract class AbstractProductDao implements Dao<Product, Long> {
 
     @Override
     @SneakyThrows
-    public Optional<Product> findById(Long id) {
+    public Optional<Product> findById(Product product) {
         try (var ps = connection.prepareStatement(FIND_BY_ID)) {
-            ps.setLong(1, id);
+            ps.setLong(1, product.getId());
             ResultSet resultSet = ps.executeQuery();
             Product p = null;
             if (resultSet.next()) {
@@ -66,9 +66,9 @@ public abstract class AbstractProductDao implements Dao<Product, Long> {
 
     @Override
     @SneakyThrows
-    public boolean remove(Long id) {
+    public boolean remove(Product product) {
         try (var ps = connection.prepareStatement(REMOVE)) {
-            ps.setLong(1, id);
+            ps.setLong(1, product.getId());
             return ps.executeUpdate() != 0;
         }
     }
@@ -119,4 +119,5 @@ public abstract class AbstractProductDao implements Dao<Product, Long> {
                 .imagePath(rs.getString("image_path"))
                 .build();
     }
+
 }
