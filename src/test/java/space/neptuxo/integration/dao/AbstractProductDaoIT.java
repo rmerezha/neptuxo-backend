@@ -5,7 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import space.neptuxo.dao.ProductBaseDao;
+import space.neptuxo.dao.AbstractProductDao;
 import space.neptuxo.entity.Product;
 import space.neptuxo.entity.ProductType;
 import space.neptuxo.util.ConnectionPool;
@@ -18,16 +18,16 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProductBaseDaoIT {
+class AbstractProductDaoIT {
 
-    private ProductBaseDao productDao;
+    private AbstractProductDao productDao;
     private Connection connection;
 
     @BeforeEach
     public void init() {
         connection = ConnectionPool.get();
         SqlInitializer.insert(connection);
-        productDao = new ProductBaseDao(connection);
+        productDao = new AbstractProductDao(connection);
     }
 
     @SneakyThrows

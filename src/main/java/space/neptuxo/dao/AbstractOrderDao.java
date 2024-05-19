@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-public class OrderBaseDao implements Dao<Order, UUID> {
+public abstract class AbstractOrderDao implements Dao<Order, UUID> {
 
     private final Connection connection;
 

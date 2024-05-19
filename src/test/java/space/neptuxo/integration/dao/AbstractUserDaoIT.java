@@ -2,7 +2,7 @@ package space.neptuxo.integration.dao;
 
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.*;
-import space.neptuxo.dao.UserBaseDao;
+import space.neptuxo.dao.AbstractUserDao;
 import space.neptuxo.entity.User;
 import space.neptuxo.util.ConnectionPool;
 import space.neptuxo.util_for_test.SqlInitializer;
@@ -13,15 +13,15 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class UserBaseDaoIT {
+class AbstractUserDaoIT {
 
-    private UserBaseDao userDao;
+    private AbstractUserDao userDao;
     private Connection connection;
     @BeforeEach
     public void init() {
         connection = ConnectionPool.get();
         SqlInitializer.insert(connection);
-        userDao = new UserBaseDao(connection);
+        userDao = new AbstractUserDao(connection);
     }
 
     @SneakyThrows

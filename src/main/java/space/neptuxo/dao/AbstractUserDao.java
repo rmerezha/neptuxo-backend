@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class UserBaseDao implements Dao<User, Long> {
+public abstract class AbstractUserDao implements Dao<User, Long> {
 
     private final Connection connection;
 
@@ -100,5 +100,7 @@ public class UserBaseDao implements Dao<User, Long> {
                 .passwd(rs.getString("passwd"))
                 .build();
     }
+
+    public abstract Optional<User> findByEmail(String email);
 
 }

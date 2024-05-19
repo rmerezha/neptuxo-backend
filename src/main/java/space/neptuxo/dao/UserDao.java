@@ -4,15 +4,14 @@ import lombok.SneakyThrows;
 import space.neptuxo.entity.User;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Optional;
 
-public class UserDao extends UserBaseDao{
+public class UserDao extends AbstractUserDao {
 
     private final Connection connection;
 
-    private final String FIND_BY_EMAIL = """
+    private final static String FIND_BY_EMAIL = """
             SELECT id, username, email, passwd
             FROM users
             WHERE email = ?;
@@ -24,6 +23,7 @@ public class UserDao extends UserBaseDao{
     }
 
     @SneakyThrows
+    @Override
     public Optional<User> findByEmail(String email) {
         try (var ps = connection.prepareStatement(FIND_BY_EMAIL)) {
             ps.setString(1, email);

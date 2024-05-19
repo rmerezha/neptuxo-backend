@@ -2,11 +2,9 @@ package space.neptuxo.integration.dao;
 
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.*;
-import space.neptuxo.dao.OrderBaseDao;
-import space.neptuxo.dao.ProductBaseDao;
+import space.neptuxo.dao.AbstractOrderDao;
 import space.neptuxo.entity.Order;
 import space.neptuxo.entity.OrderStatus;
-import space.neptuxo.entity.Product;
 import space.neptuxo.util.ConnectionPool;
 import space.neptuxo.util_for_test.SqlInitializer;
 
@@ -19,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class OrderBaseDaoIT {
 
-    private OrderBaseDao orderDao;
+    private AbstractOrderDao orderDao;
     private Connection connection;
 
     private final UUID id = UUID.fromString("a85a9a53-9256-4f11-bbd3-e8202a8f481a");
@@ -28,7 +26,7 @@ class OrderBaseDaoIT {
     public void init() {
         connection = ConnectionPool.get();
         SqlInitializer.insert(connection);
-        orderDao = new OrderBaseDao(connection);
+        orderDao = new AbstractOrderDao(connection);
     }
 
     @SneakyThrows

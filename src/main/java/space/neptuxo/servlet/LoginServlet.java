@@ -1,6 +1,5 @@
 package space.neptuxo.servlet;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import space.neptuxo.dto.ReadUserDto;
 import space.neptuxo.service.UserService;
 import space.neptuxo.util.JsonBuilder;
+import space.neptuxo.util.SessionKey;
 import space.neptuxo.util.Status;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ import java.util.Optional;
 public class LoginServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         UserService service = new UserService();
         Optional<ReadUserDto> user;
@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
         JsonBuilder jsonBuilder = new JsonBuilder();
 
         if (user.isPresent()) {
-            req.getSession().setAttribute("user", user.get());
+            req.getSession().setAttribute(SessionKey.USER.get(), user.get());
             jsonBuilder.setStatus(Status.SUCCESS);
         } else {
             jsonBuilder.setStatus(Status.FAIL).setErrors(service.getErrorHandler().getErrors());

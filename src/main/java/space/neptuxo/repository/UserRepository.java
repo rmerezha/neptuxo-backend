@@ -1,5 +1,6 @@
 package space.neptuxo.repository;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import space.neptuxo.dao.UserDao;
@@ -17,11 +18,11 @@ import space.neptuxo.util.PasswordHasher;
 import java.sql.SQLException;
 import java.util.Optional;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class UserRepository {
 
     private final CreateUserMapper createMapper;
-    private final UserMapper userMapper = new UserMapper();
+    private final UserMapper userMapper;
     private final ErrorHandler errorHandler;
 
     @SneakyThrows

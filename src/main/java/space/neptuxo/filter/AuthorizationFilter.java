@@ -4,13 +4,9 @@ import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import space.neptuxo.util.Error;
-import space.neptuxo.util.JsonBuilder;
-import space.neptuxo.util.Status;
+import space.neptuxo.util.SessionKey;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.List;
 import java.util.Set;
 
 @WebFilter("/*")
@@ -33,7 +29,7 @@ public class AuthorizationFilter implements Filter {
         if (isAllowedAccess(uri, (HttpServletRequest) servletRequest)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            sendForbiddenResponse((HttpServletResponse)servletResponse);
+            ((HttpServletResponse) servletResponse).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
 
@@ -41,11 +37,6 @@ public class AuthorizationFilter implements Filter {
         return isPublicPath(uri) || (!isLoggedIn(request) && isAuthenticationPath(uri)) || isLoggedIn(request);
     }
 
-    private void sendForbiddenResponse(HttpServletResponse response) throws IOException {
-        try (OutputStream outputStream = response.getOutputStream()) {
-            response.getOutputStream().write(new JsonBuilder().setStatus(Status.FAIL).setErrors(List.of(Error.FORBIDDEN)).build());
-        }
-    }
     private boolean isPublicPath(String uri) {
         return PUBLIC_PATHS.stream().anyMatch(uri::startsWith);
     }
@@ -55,6 +46,6 @@ public class AuthorizationFilter implements Filter {
     }
 
     private boolean isLoggedIn(ServletRequest servletRequest) {
-        return ((HttpServletRequest) servletRequest).getSession().getAttribute("user") != null;
+        return ((HttpServletRequest) servletRequest).getSession().getAttribute(SessionKey.USER.get()) != null;
     }
 }
