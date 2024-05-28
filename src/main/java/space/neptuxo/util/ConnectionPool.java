@@ -1,13 +1,12 @@
 package space.neptuxo.util;
 
-import lombok.experimental.UtilityClass;
-
 import java.lang.reflect.Proxy;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 
-@UtilityClass
 public class ConnectionPool {
 
     private static final String POOL_SIZE_KEY = "db.pool.size";
@@ -15,6 +14,8 @@ public class ConnectionPool {
     private static final String USER_KEY = "db.user";
     private static final String PASSWD_KEY = "db.passwd";
     private static final ArrayList<Connection> sourceConnections = new ArrayList<>();
+
+    private static final PropertiesUtil properties = new PropertiesUtil();
     private static ArrayBlockingQueue<Connection> pool;
 
     static {
@@ -31,7 +32,7 @@ public class ConnectionPool {
     }
 
     private static void initPool() {
-        int poolSize = Integer.parseInt(PropertiesUtil.get(POOL_SIZE_KEY));
+        int poolSize = Integer.parseInt(properties.get(POOL_SIZE_KEY));
         pool = new ArrayBlockingQueue<>(poolSize);
         for (int i = 0; i < poolSize; i++) {
             var sourceConnection = createConnection();
@@ -48,16 +49,16 @@ public class ConnectionPool {
     private static Connection createConnection() {
         try {
             return DriverManager.getConnection(
-                    PropertiesUtil.get(URL_KEY),
-                    PropertiesUtil.get(USER_KEY),
-                    PropertiesUtil.get(PASSWD_KEY));
+                    properties.get(URL_KEY),
+                    properties.get(USER_KEY),
+                    properties.get(PASSWD_KEY));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
     }
 
-    public static Connection get() {
+    public Connection get() {
         try {
             return pool.take();
         } catch (InterruptedException e) {

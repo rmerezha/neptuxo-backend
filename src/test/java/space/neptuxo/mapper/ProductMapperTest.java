@@ -7,7 +7,7 @@ import space.neptuxo.entity.ProductType;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProductMapperTest {
 
@@ -18,9 +18,10 @@ class ProductMapperTest {
         Product entity = Product.builder()
                 .id(56)
                 .createdBy(5)
+                .name("name")
                 .description("sss")
                 .type(ProductType.ELECTRONICS)
-                .count(5)
+                .price(5)
                 .createdAt(LocalDateTime.of(2022, 5, 5, 5, 5))
                 .imagePath("/images")
                 .build();
@@ -30,9 +31,10 @@ class ProductMapperTest {
         ProductDto expected = ProductDto.builder()
                 .id(56)
                 .createdBy(5)
+                .name("name")
                 .description("sss")
                 .type(ProductType.ELECTRONICS)
-                .count(5)
+                .price(5)
                 .createdAt(LocalDateTime.of(2022, 5, 5, 5, 5))
                 .imagePath("/images")
                 .build();

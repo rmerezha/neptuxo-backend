@@ -1,11 +1,8 @@
 package space.neptuxo.util;
 
-import lombok.experimental.UtilityClass;
-
 import java.io.IOException;
 import java.util.Properties;
 
-@UtilityClass
 public class PropertiesUtil {
 
     private static final Properties properties = new Properties();
@@ -25,7 +22,7 @@ public class PropertiesUtil {
         }
     }
 
-    public static String get(String key) {
+    public String get(String key) {
         return properties.getProperty(key);
     }
 

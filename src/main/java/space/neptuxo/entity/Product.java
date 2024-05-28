@@ -13,9 +13,10 @@ public class Product {
 
     private long id;
     private long createdBy;
+    private String name;
     private String description;
     private ProductType type;
-    private int count;
+    private int price;
     private LocalDateTime createdAt;
     private String imagePath;
 

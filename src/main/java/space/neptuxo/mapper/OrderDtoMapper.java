@@ -3,7 +3,7 @@ package space.neptuxo.mapper;
 import space.neptuxo.dto.OrderDto;
 import space.neptuxo.entity.Order;
 
-public class OrderDtoMapper implements Map<OrderDto, Order> {
+public class OrderDtoMapper implements Mapper<OrderDto, Order> {
 
     @Override
     public Order map(OrderDto obj) {

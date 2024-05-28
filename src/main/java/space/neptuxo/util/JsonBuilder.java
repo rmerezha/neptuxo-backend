@@ -4,24 +4,24 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.util.List;
 
 public class JsonBuilder {
 
-
-    private final ObjectMapper mapper = new ObjectMapper();
-    private final ObjectNode rootNode = mapper.createObjectNode();
-
-    private final ObjectNode dataNode = mapper.createObjectNode();
-
     private final static String STATUS_KEY = "status";
     private final static String MESSAGE_KEY = "message";
-    private final static String CODE_KEY = "key";
+    private final static String CODE_KEY = "code";
     private final static String DATA_KEY = "data";
     private final static String ERRORS_KEY = "errors";
+    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectNode rootNode = mapper.createObjectNode();
+    private final ObjectNode dataNode = mapper.createObjectNode();
 
-
+    public JsonBuilder() {
+        mapper.registerModule(new JavaTimeModule());
+    }
 
     public JsonBuilder setStatus(Status status) {
         rootNode.put(STATUS_KEY, status.getType());
@@ -33,7 +33,7 @@ public class JsonBuilder {
         return this;
     }
 
-    public JsonBuilder setData(String key, int val) {
+    public JsonBuilder setData(String key, long val) {
         dataNode.put(key, val);
         return this;
     }

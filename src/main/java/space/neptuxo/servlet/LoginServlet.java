@@ -6,39 +6,31 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import space.neptuxo.dto.ReadUserDto;
+import space.neptuxo.dto.LoginDto;
 import space.neptuxo.service.UserService;
-import space.neptuxo.util.JsonBuilder;
+import space.neptuxo.util.DependencyInjector;
 import space.neptuxo.util.SessionKey;
-import space.neptuxo.util.Status;
 
 import java.io.IOException;
-import java.util.Optional;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
+    private final static UserService SERVICE = DependencyInjector.getBean(UserService.class);
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        UserService service = new UserService();
-        Optional<ReadUserDto> user;
+        LoginDto loginDto;
 
         try (ServletInputStream jsonStream = req.getInputStream()) {
-            user = service.login(jsonStream);
+            loginDto = SERVICE.login(jsonStream);
         }
 
-        JsonBuilder jsonBuilder = new JsonBuilder();
-
-        if (user.isPresent()) {
-            req.getSession().setAttribute(SessionKey.USER.get(), user.get());
-            jsonBuilder.setStatus(Status.SUCCESS);
-        } else {
-            jsonBuilder.setStatus(Status.FAIL).setErrors(service.getErrorHandler().getErrors());
-        }
+        loginDto.user().ifPresent(u -> req.getSession().setAttribute(SessionKey.USER.get(), u));
 
         try (ServletOutputStream body = resp.getOutputStream()) {
-            body.write(jsonBuilder.build());
+            body.write(loginDto.json().getBytes());
         }
 
     }

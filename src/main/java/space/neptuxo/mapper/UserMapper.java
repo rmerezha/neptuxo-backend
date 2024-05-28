@@ -1,9 +1,11 @@
 package space.neptuxo.mapper;
 
+import lombok.NoArgsConstructor;
 import space.neptuxo.dto.ReadUserDto;
 import space.neptuxo.entity.User;
 
-public class UserMapper implements Map<User, ReadUserDto>{
+@NoArgsConstructor
+public class UserMapper implements Mapper<User, ReadUserDto> {
     @Override
     public ReadUserDto map(User obj) {
         return ReadUserDto.builder()

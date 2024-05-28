@@ -8,7 +8,7 @@ import space.neptuxo.entity.OrderStatus;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OrderMapperTest {
 

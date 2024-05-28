@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import space.neptuxo.dto.ReadUserDto;
 import space.neptuxo.entity.User;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ReadUserMapperTest {
 
@@ -13,11 +13,14 @@ class ReadUserMapperTest {
     @Test
     void map() {
 
-        ReadUserDto dto = new ReadUserDto(25, "username", "email");
+        ReadUserDto dto = new ReadUserDto(0, "username", "email");
 
         User actual = mapper.map(dto);
 
-        assertEquals(new User(dto.id(), dto.username(), dto.email(), null), actual);
+        User expected = new User(0, dto.username(), dto.email(), null);
+
+        assertEquals(expected, actual);
+
 
     }
 }

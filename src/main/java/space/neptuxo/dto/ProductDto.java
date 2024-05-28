@@ -10,9 +10,10 @@ import java.time.LocalDateTime;
 public record ProductDto(
         long id,
         long createdBy,
+        String name,
         String description,
         ProductType type,
-        int count,
+        int price,
         LocalDateTime createdAt,
         String imagePath
 ) {

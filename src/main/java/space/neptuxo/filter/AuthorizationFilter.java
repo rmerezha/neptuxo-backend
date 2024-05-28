@@ -14,7 +14,9 @@ public class AuthorizationFilter implements Filter {
 
     private static final Set<String> PUBLIC_PATHS = Set.of(
             "/search",
-            "/account"
+            "/profile",
+            "/review",
+            "/review/product"
     );
 
     private static final Set<String> AUTHENTICATION_PATHS = Set.of(
@@ -34,7 +36,7 @@ public class AuthorizationFilter implements Filter {
     }
 
     private boolean isAllowedAccess(String uri, HttpServletRequest request) {
-        return isPublicPath(uri) || (!isLoggedIn(request) && isAuthenticationPath(uri)) || isLoggedIn(request);
+        return isPublicPath(uri) || (isAuthenticationPath(uri) ^ isLoggedIn(request));
     }
 
     private boolean isPublicPath(String uri) {

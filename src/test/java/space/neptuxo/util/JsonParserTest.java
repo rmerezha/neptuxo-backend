@@ -2,15 +2,18 @@ package space.neptuxo.util;
 
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
-import space.neptuxo.dto.CreateUserDto;
+import space.neptuxo.dto.UserDto;
 import space.neptuxo.entity.User;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class JsonParserTest {
+
+    private final JsonParser parser = new JsonParser();
 
     @Test
     @SneakyThrows
@@ -24,9 +27,9 @@ class JsonParserTest {
                 """;
 
         try (InputStream in = new ByteArrayInputStream(json.getBytes())) {
-            CreateUserDto actual = JsonParser.parse(in, CreateUserDto.class);
+            UserDto actual = parser.parse(in, UserDto.class);
 
-            CreateUserDto expected = CreateUserDto.builder()
+            UserDto expected = UserDto.builder()
                     .username("test1")
                     .email("test1@neptuxo.space")
                     .passwd("$2y$10$gCbOKzKDn4cXHftxr/X6e.aoAEYH01NeTRWbD8MmiY0gjabMqgNuK")
@@ -50,7 +53,7 @@ class JsonParserTest {
                 """;
 
         try (InputStream in = new ByteArrayInputStream(json.getBytes())) {
-            assertThrows(Exception.class, () -> JsonParser.parse(in, User.class));
+            assertThrows(Exception.class, () -> parser.parse(in, User.class));
         }
     }
 }
